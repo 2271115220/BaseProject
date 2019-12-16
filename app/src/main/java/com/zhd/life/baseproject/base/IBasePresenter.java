@@ -1,6 +1,11 @@
 package com.zhd.life.baseproject.base;
 
-public interface IBasePresenter<T extends IBaseMVPView> {
+/**
+ * activity和fragment的presenter继承这个接口
+ *
+ * @param <T>
+ */
+public interface IBasePresenter<T extends IBaseMVP> {
 
     // 绑定View
     void attachView(T view);

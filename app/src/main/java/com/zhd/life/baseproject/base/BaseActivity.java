@@ -1,15 +1,20 @@
 package com.zhd.life.baseproject.base;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.zhd.life.baseproject.widget.LoadingDialog;
+
 /**
- *
+ * 加载动画，屏幕适配，状态栏，这部分内容放在这里
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements IBaseView {
+    public Dialog mLoadingDialog = null;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,6 +22,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         initView();
         initListener();
         initData();
+    }
+
+    /**
+     * 初始化加载动画，因为并不是每个页面都需要这个东西，因此当需要的时候去加载更合适
+     */
+    public void initLoadingDialog() {
+        if (mLoadingDialog != null) {
+            mLoadingDialog = new LoadingDialog(getApplicationContext());
+        }
     }
 
     /**
@@ -42,22 +56,30 @@ public abstract class BaseActivity extends AppCompatActivity {
     public abstract void initListener();
 
     /**
-     * 默认的加载动画
-     */
-    public void showLoadDialog() {
-
-    }
-
-    /**
-     * 关闭加载动画
-     */
-    public void hideLoadingDialog() {
-
-    }
-
-    /**
      * 状态栏相关
      */
     public void initStatusBar() {
+    }
+
+    @Override
+    public void showLoadDialog() {
+        if (mLoadingDialog != null) {
+            mLoadingDialog.show();
+        }
+    }
+
+    @Override
+    public void hideLoadingDialog() {
+        if (mLoadingDialog != null) {
+            mLoadingDialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mLoadingDialog != null) {
+            mLoadingDialog = null;
+        }
     }
 }

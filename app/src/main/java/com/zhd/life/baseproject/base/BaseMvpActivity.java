@@ -4,7 +4,12 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 
-public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActivity implements IBaseMVPView {
+/**
+ * mvp相关的逻辑放在这里
+ *
+ * @param <T>
+ */
+public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActivity implements IBaseMVP {
     protected T mPresenter;
 
     @Override
@@ -14,6 +19,11 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * 创建presenter
+     *
+     * @return
+     */
     public abstract T createPresenter();
 
     public void bindPresenter() {
