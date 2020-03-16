@@ -2,6 +2,8 @@ package com.zhd.life.baseproject.base;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.Nullable;
@@ -23,6 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         initListener();
         initData();
     }
+
 
     /**
      * 初始化加载动画，因为并不是每个页面都需要这个东西，因此当需要的时候去加载更合适
@@ -81,5 +84,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseVie
         if (mLoadingDialog != null) {
             mLoadingDialog = null;
         }
+    }
+
+    /**
+     * 设置全屏显示
+     */
+    protected void isFullScreen() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
     }
 }

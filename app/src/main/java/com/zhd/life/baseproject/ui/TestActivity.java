@@ -33,4 +33,8 @@ public class TestActivity extends BaseMvpActivity<TestPresenter> implements ITes
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
